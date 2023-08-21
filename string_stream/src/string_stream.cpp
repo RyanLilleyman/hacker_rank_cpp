@@ -7,16 +7,41 @@
 #include <vector>
 using namespace std;
 
-vector<int> parse_integers(stringstream &str) {
-  char ch;
-  int a, b, c;
-  str >> a >> ch >> b >> ch >> c;
-  vector<int> to_return = {a, b, c};
+const vector<string> explode(const string &s, const char &c) {
+  vector<string> v;
+  string buff{""};
+  for (auto n : s) {
+    if (n != c) {
+      buff += n;
+    } else if (n == c && buff != "") {
+      v.push_back(buff);
+      buff = "";
+    }
+  }
+  if (buff != "") {
+    v.push_back(buff);
+  }
+  return v;
+}
+
+const vector<int> convert_to_integer(const vector<string> &filtered) {
+  vector<int> converted;
+  for (auto s : filtered) {
+    converted.push_back(stoi(s));
+  }
+  return converted;
+}
+
+const vector<int> parse_integers(stringstream &str) {
+  string s = str.str();
+  vector<int> to_return = convert_to_integer(explode(s, ','));
   return to_return;
 }
 
 int main() {
-  stringstream ss("23,4,56");
+  std::string s;
+  std::cin >> s;
+  std::stringstream ss(s);
   vector<int> ahoy = parse_integers(ss);
   for (int a : ahoy) {
     printf("%d ", a);
