@@ -8,8 +8,8 @@ using namespace std;
 
 struct MyStruct {
   int age;
-  char first_name[50];
-  char last_name[50];
+  char first_name[51];
+  char last_name[51];
   int standard;
 };
 
@@ -30,7 +30,7 @@ void printStruct(const MyStruct &student) {
 int main() {
   MyStruct student;
 
-  scanf("%d %s %s %d", &student.age, student.first_name, student.last_name,
+  scanf("%d %50s %50s %d", &student.age, student.first_name, student.last_name,
         &student.standard);
   printStruct(student);
 
