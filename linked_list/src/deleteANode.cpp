@@ -73,15 +73,26 @@ void freeSinglyLinkedList(SinglyLinkedListNode *node) {
  */
 
 SinglyLinkedListNode *deleteNode(SinglyLinkedListNode *llist, int position) {
-  int count;
+  int count = 0;
   SinglyLinkedListNode *node = llist;
+  SinglyLinkedListNode *previous;
   while (node) {
-    if (count == (position - 1)) {
+    if (position == 0) {
+      SinglyLinkedListNode *newHead = node->next;
+      free(node);
+      return newHead;
     }
+    if (count == (position)) {
+      previous->next = node->next;
 
+      free(node);
+      break;
+    }
+    previous = node;
     node = node->next;
     count += 1;
   }
+  return llist;
 }
 
 int main() {
@@ -98,7 +109,7 @@ int main() {
     cin >> llist_item;
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
-    llist->insert_node(llist_item);
+    llist->insertNode(llist_item);
   }
 
   int position;
@@ -107,10 +118,10 @@ int main() {
 
   SinglyLinkedListNode *llist1 = deleteNode(llist->head, position);
 
-  print_singly_linked_list(llist1, " ", fout);
+  printSinglyLinkedList(llist1, " ", fout);
   fout << "\n";
 
-  free_singly_linked_list(llist1);
+  freeSinglyLinkedList(llist1);
 
   fout.close();
 
